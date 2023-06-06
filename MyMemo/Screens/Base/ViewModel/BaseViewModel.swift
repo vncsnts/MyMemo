@@ -1,0 +1,19 @@
+//
+//  BaseViewModel.swift
+//  Assistant
+//
+//  Created by Vince Carlo Santos on 5/24/23.
+//
+
+import Foundation
+import SwiftUI
+
+@MainActor
+final class BaseViewModel: ObservableObject {
+    @AppStorage("baseViewState") var baseViewState: Int = 0
+}
+
+enum BaseViewState: Int {
+    case onboarding = 0
+    case home = 1
+}
