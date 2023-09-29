@@ -16,6 +16,10 @@
 		8A0F50812A1DFCFE0000723E /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F50802A1DFCFE0000723E /* OnboardingViewModel.swift */; };
 		8A0F50832A1E03E60000723E /* CircleGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F50822A1E03E60000723E /* CircleGroupView.swift */; };
 		8A0F50852A1E0FDD0000723E /* SwipeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F50842A1E0FDD0000723E /* SwipeButtonView.swift */; };
+		8A5EF68F2ABB340900C868D5 /* NoteWriterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EF68E2ABB340900C868D5 /* NoteWriterView.swift */; };
+		8A5EF6922ABB371B00C868D5 /* NoteWriterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5EF6912ABB371B00C868D5 /* NoteWriterViewModel.swift */; };
+		8A6CF2462A974D4C008C9EA7 /* MemoryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A6CF2442A974D4C008C9EA7 /* MemoryModel.xcdatamodeld */; };
+		8A6CF2492A974E5F008C9EA7 /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6CF2482A974E5F008C9EA7 /* MemoryStorage.swift */; };
 		8A7FFBB12A2E1A7C00CE7A43 /* AudioRecorderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7FFBB02A2E1A7C00CE7A43 /* AudioRecorderService.swift */; };
 		8A7FFBB52A2E1F6700CE7A43 /* AudioRecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7FFBB42A2E1F6700CE7A43 /* AudioRecorderView.swift */; };
 		8A7FFBB82A2E1F9A00CE7A43 /* AudioRecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7FFBB72A2E1F9A00CE7A43 /* AudioRecorderViewModel.swift */; };
@@ -36,6 +40,10 @@
 		8A0F50802A1DFCFE0000723E /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		8A0F50822A1E03E60000723E /* CircleGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGroupView.swift; sourceTree = "<group>"; };
 		8A0F50842A1E0FDD0000723E /* SwipeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeButtonView.swift; sourceTree = "<group>"; };
+		8A5EF68E2ABB340900C868D5 /* NoteWriterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWriterView.swift; sourceTree = "<group>"; };
+		8A5EF6912ABB371B00C868D5 /* NoteWriterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteWriterViewModel.swift; sourceTree = "<group>"; };
+		8A6CF2452A974D4C008C9EA7 /* MemoryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoryModel.xcdatamodel; sourceTree = "<group>"; };
+		8A6CF2482A974E5F008C9EA7 /* MemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
 		8A7FFBB02A2E1A7C00CE7A43 /* AudioRecorderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderService.swift; sourceTree = "<group>"; };
 		8A7FFBB42A2E1F6700CE7A43 /* AudioRecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderView.swift; sourceTree = "<group>"; };
 		8A7FFBB72A2E1F9A00CE7A43 /* AudioRecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewModel.swift; sourceTree = "<group>"; };
@@ -87,6 +95,7 @@
 		8A0F50682A1DF0590000723E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8A6CF2432A974D1B008C9EA7 /* CoreData */,
 				8A0F505A2A1DF0480000723E /* AssistantApp.swift */,
 			);
 			path = Common;
@@ -95,10 +104,11 @@
 		8A0F50692A1DF0610000723E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				8A5EF68C2ABB33DF00C868D5 /* NoteWriter */,
+				8A0F50712A1DF2310000723E /* Base */,
 				8A7FFBB22A2E1F5400CE7A43 /* AudioRecorder */,
 				8A0F507A2A1DF3C50000723E /* Home */,
 				8A0F50762A1DF3B00000723E /* Onboarding */,
-				8A0F50712A1DF2310000723E /* Base */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -165,7 +175,6 @@
 		8A0F507A2A1DF3C50000723E /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				8AFA2A842A24CE5F0031CFAB /* Subviews */,
 				8AFA2A812A24CE0B0031CFAB /* ViewModel */,
 				8A0F507B2A1DF3CA0000723E /* View */,
 			);
@@ -186,6 +195,48 @@
 				8A0F50802A1DFCFE0000723E /* OnboardingViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8A5EF68C2ABB33DF00C868D5 /* NoteWriter */ = {
+			isa = PBXGroup;
+			children = (
+				8A5EF6902ABB370F00C868D5 /* ViewModel */,
+				8A5EF68D2ABB33FF00C868D5 /* View */,
+			);
+			path = NoteWriter;
+			sourceTree = "<group>";
+		};
+		8A5EF68D2ABB33FF00C868D5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8A5EF68E2ABB340900C868D5 /* NoteWriterView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8A5EF6902ABB370F00C868D5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8A5EF6912ABB371B00C868D5 /* NoteWriterViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8A6CF2432A974D1B008C9EA7 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8A6CF24A2A974EF7008C9EA7 /* Memory */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		8A6CF24A2A974EF7008C9EA7 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				8A6CF2482A974E5F008C9EA7 /* MemoryStorage.swift */,
+				8A6CF2442A974D4C008C9EA7 /* MemoryModel.xcdatamodeld */,
+			);
+			path = Memory;
 			sourceTree = "<group>";
 		};
 		8A7FFBAF2A2E19A000CE7A43 /* Services */ = {
@@ -227,13 +278,6 @@
 				8AFA2A822A24CE140031CFAB /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		8AFA2A842A24CE5F0031CFAB /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Subviews;
 			sourceTree = "<group>";
 		};
 		8AFA2A852A24D7B30031CFAB /* Views */ = {
@@ -323,18 +367,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A5EF68F2ABB340900C868D5 /* NoteWriterView.swift in Sources */,
 				8A0F50832A1E03E60000723E /* CircleGroupView.swift in Sources */,
 				8AFA2A832A24CE140031CFAB /* HomeViewModel.swift in Sources */,
 				8A0F505D2A1DF0480000723E /* BaseView.swift in Sources */,
 				8A7FFBB82A2E1F9A00CE7A43 /* AudioRecorderViewModel.swift in Sources */,
 				8AFA2A882A24D7D00031CFAB /* LevitateViewModifier.swift in Sources */,
 				8A0F50812A1DFCFE0000723E /* OnboardingViewModel.swift in Sources */,
+				8A5EF6922ABB371B00C868D5 /* NoteWriterViewModel.swift in Sources */,
+				8A6CF2462A974D4C008C9EA7 /* MemoryModel.xcdatamodeld in Sources */,
 				8A7FFBB52A2E1F6700CE7A43 /* AudioRecorderView.swift in Sources */,
 				8A0F50792A1DF3C00000723E /* OnboardingView.swift in Sources */,
 				8A0F505B2A1DF0480000723E /* AssistantApp.swift in Sources */,
 				8A7FFBBA2A2E2E9200CE7A43 /* WaveView.swift in Sources */,
 				8A0F507D2A1DF3D10000723E /* HomeView.swift in Sources */,
 				8A0F50752A1DF27B0000723E /* BaseViewModel.swift in Sources */,
+				8A6CF2492A974E5F008C9EA7 /* MemoryStorage.swift in Sources */,
 				8A7FFBB12A2E1A7C00CE7A43 /* AudioRecorderService.swift in Sources */,
 				8A0F50852A1E0FDD0000723E /* SwipeButtonView.swift in Sources */,
 			);
@@ -393,7 +441,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -447,7 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -468,6 +516,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "My Memo";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Assistant would like to use the microphone to record audio memo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -499,6 +549,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "My Memo";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Assistant would like to use the microphone to record audio memo";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -541,6 +593,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8A6CF2442A974D4C008C9EA7 /* MemoryModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8A6CF2452A974D4C008C9EA7 /* MemoryModel.xcdatamodel */,
+			);
+			currentVersion = 8A6CF2452A974D4C008C9EA7 /* MemoryModel.xcdatamodel */;
+			path = MemoryModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8A0F504F2A1DF0480000723E /* Project object */;
 }

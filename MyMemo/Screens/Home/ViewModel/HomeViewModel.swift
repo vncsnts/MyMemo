@@ -7,16 +7,23 @@
 
 import Foundation
 
-@MainActor
-final class HomeViewModel: ObservableObject {
-    @Published var showReminderOptions = false
-    @Published var sheetState: HomeViewState?
-}
-
-enum HomeViewState: Identifiable {
-    var id: Int {
-        hashValue
+extension HomeView {
+    @MainActor
+    final class HomeViewModel: ObservableObject {
+        @Published var showReminderOptions = false
+        @Published var sheetState: HomeViewState?
+        var memoryStorage: MemoryStorage
+        
+        init(memoryStorage: MemoryStorage) {
+            self.memoryStorage = memoryStorage
+        }
     }
-    case audioRecording
-    case text
+    
+    enum HomeViewState: Identifiable {
+        var id: Int {
+            hashValue
+        }
+        case audioRecording
+        case text
+    }
 }

@@ -8,55 +8,52 @@
 import SwiftUI
 
 struct AudioRecorderView: View {
+    @EnvironmentObject var memoryStorage: MemoryStorage
+    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = AudioRecorderViewModel()
 
     var body: some View {
         VStack {
-            Spacer()
-            if viewModel.isRecording {
-                WaveView()
-            }
+            WaveView()
             HStack {
                 Button(action: {
                     viewModel.isRecording.toggle()
                 }, label: {
-                    if viewModel.isRecording {
-                        ZStack {
+                    ZStack {
+                        if viewModel.isRecording {
                             Rectangle()
                                 .foregroundColor(.red)
                                 .padding(10)
-                            Circle()
-                                .stroke(.primary, lineWidth: 3)
-                        }
-                    } else {
-                        ZStack {
+                        } else {
                             Circle()
                                 .foregroundColor(.red)
-                                .padding(4)
-                            Circle()
-                                .stroke(.primary, lineWidth: 3)
+                                .padding(10)
                         }
+                        Circle()
+                            .stroke(.primary, lineWidth: 3)
                     }
                 })
-                .animation(.linear, value: viewModel.isRecording)
                 .frame(width: 44, height: 44, alignment: .center)
                 
                 Button(action: {
                     viewModel.isPlaying.toggle()
                 }, label: {
-                    if viewModel.isPlaying {
-                        Image(systemName: "pause.fill")
-                    } else {
-                        Image(systemName: "play.fill")
-                    }
+                    Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
                 })
                 .frame(width: 44, height: 44, alignment: .center)
+                .disabled(!viewModel.hasRecordedData)
+                
+                Button("Save") {
+                    viewModel.saveRecordedAudio(memoryStorage: memoryStorage)
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(!viewModel.hasRecordedData)
             }
         }
         .onAppear {
             viewModel.initializeRecorder()
         }
-        .presentationDetents([.fraction( viewModel.isRecording ? 0.25 : 0.1)])
+        .presentationDetents([.fraction( 0.25)])
     }
 }
 

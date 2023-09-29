@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct AssistantApp: App {
+    @StateObject private var memoryStorage = MemoryStorage()
+    
+    
     var body: some Scene {
         WindowGroup {
-            BaseView()
+            BaseView(memoryStorage: memoryStorage)
         }
     }
 }

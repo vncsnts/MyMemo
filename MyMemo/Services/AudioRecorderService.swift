@@ -8,14 +8,22 @@
 import Foundation
 import AVFoundation
 
-class AudioRecorderService: NSObject, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
-    var soundRecorder: AVAudioRecorder!
-    var soundPlayer: AVAudioPlayer = AVAudioPlayer()
-    var audioSession: AVAudioSession = AVAudioSession()
-    var audioEngine: AVAudioEngine = AVAudioEngine()
-    var mixer: AVAudioMixerNode = AVAudioMixerNode()
-    var fileName = "101.m4a"
-    var isRecording = false
+protocol AudioRecorderProtocol {
+    var audioStoppedPlaying: (() -> Void)? { get set }
+    var recordingDone: ((URL) -> Void)? { get set }
+}
+
+class AudioRecorderService: NSObject, AudioRecorderProtocol {
+    var audioStoppedPlaying: (() -> Void)?
+    var recordingDone: ((URL) -> Void)?
+    
+    private var soundRecorder: AVAudioRecorder!
+    private var soundPlayer: AVAudioPlayer = AVAudioPlayer()
+    private var audioSession: AVAudioSession = AVAudioSession()
+    private var audioEngine: AVAudioEngine = AVAudioEngine()
+    private var mixer: AVAudioMixerNode = AVAudioMixerNode()
+    private var fileName = ""
+    private var currentUrl: URL?
     
     override init() {
         do {
@@ -32,7 +40,9 @@ class AudioRecorderService: NSObject, AVAudioPlayerDelegate, AVAudioRecorderDele
     }
     
     public func initializeRecorder() {
+        self.fileName = "\(UUID().uuidString).m4a"
         let audioFileName = getDocumentsDirectory().appendingPathComponent(fileName)
+        self.currentUrl = audioFileName
         let recordSetting = [AVFormatIDKey: kAudioFormatAppleLossless,
                              AVEncoderAudioQualityKey: AVAudioQuality.max.rawValue,
                              AVEncoderBitRateKey: 32000,
@@ -68,19 +78,22 @@ class AudioRecorderService: NSObject, AVAudioPlayerDelegate, AVAudioRecorderDele
     
     public func startRecording() {
         soundRecorder.record()
-        isRecording = true
     }
     
     public func stopRecording() {
         soundRecorder.stop()
-        isRecording = false
     }
-    
+}
+
+extension AudioRecorderService: AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         print("AudioRecorderService: Ended Recording")
+        guard let currentUrl = self.currentUrl else { return }
+        self.recordingDone?(currentUrl)
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("AudioRecorderService: Audio Stopped Playing")
+        self.audioStoppedPlaying?()
     }
 }

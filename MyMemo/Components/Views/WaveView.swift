@@ -11,11 +11,11 @@ struct WaveView: View {
     var body: some View {
         WaveShape(strength: 50, frequency: 30, phase: self.phase)
             .stroke(Color.accentColor, lineWidth: 5)
-        .onAppear {
-            withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
-                self.phase = .pi * 2
+            .onAppear {
+                withAnimation(Animation.linear(duration: 1).repeatForever(autoreverses: false)) {
+                    self.phase = .pi * 2
+                }
             }
-        }
     }
 }
 

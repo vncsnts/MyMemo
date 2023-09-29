@@ -8,7 +8,10 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-final class OnboardingViewModel: ObservableObject {
-    @AppStorage("baseViewState") var baseViewState: Int = 0
+extension OnboardingView {
+    @MainActor
+    final class OnboardingViewModel: ObservableObject {
+        @AppStorage("baseViewState") var baseViewState: Int = 0
+    }
 }
+

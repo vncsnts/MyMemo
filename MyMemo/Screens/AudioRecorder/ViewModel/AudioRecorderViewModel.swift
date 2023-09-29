@@ -7,47 +7,70 @@
 
 import Foundation
 
-@MainActor
-final class AudioRecorderViewModel: ObservableObject {
-    private var audioRecorderService = AudioRecorderService()
-    
-    @Published var isRecording = false {
-        didSet {
-            if isRecording {
-                startRecordingAudio()
-            } else {
-                stopRecordingAudio()
+extension AudioRecorderView {
+    @MainActor
+    final class AudioRecorderViewModel: ObservableObject {
+        private var audioRecorderService = AudioRecorderService()
+        
+        @Published var isRecording = false {
+            didSet {
+                if self.isRecording {
+                    self.startRecordingAudio()
+                } else {
+                    self.stopRecordingAudio()
+                }
             }
         }
-    }
-    
-    @Published var isPlaying = false {
-        didSet {
-            if isPlaying {
-                playLastRecordedAudio()
-            } else {
-                pauseLastRecordedAudio()
+        
+        @Published var isPlaying = false {
+            didSet {
+                if self.isPlaying {
+                    self.playLastRecordedAudio()
+                } else {
+                    self.pauseLastRecordedAudio()
+                }
             }
         }
-    }
-    
-    func initializeRecorder() {
-        audioRecorderService.initializeRecorder()
-    }
-    
-    func startRecordingAudio() {
-        audioRecorderService.startRecording()
-    }
-    
-    func stopRecordingAudio() {
-        audioRecorderService.stopRecording()
-    }
-    
-    func playLastRecordedAudio() {
-        audioRecorderService.playAudio()
-    }
-    
-    func pauseLastRecordedAudio() {
-        audioRecorderService.pauseAudio()
+        
+        @Published var hasRecordedData = false
+        @Published var currentUrl: URL?
+        @Published var currentName: String?
+        
+        func setListeners() {
+            self.audioRecorderService.audioStoppedPlaying = { [self] in
+                self.isPlaying = false
+            }
+            
+            self.audioRecorderService.recordingDone = { url in
+                self.hasRecordedData = true
+                self.currentUrl = url
+                self.currentName = UUID().uuidString
+            }
+        }
+        
+        func initializeRecorder() {
+            self.setListeners()
+            self.audioRecorderService.initializeRecorder()
+        }
+        
+        func startRecordingAudio() {
+            self.audioRecorderService.startRecording()
+        }
+        
+        func stopRecordingAudio() {
+            self.audioRecorderService.stopRecording()
+        }
+        
+        func playLastRecordedAudio() {
+            self.audioRecorderService.playAudio()
+        }
+        
+        func pauseLastRecordedAudio() {
+            self.audioRecorderService.pauseAudio()
+        }
+        
+        func saveRecordedAudio(memoryStorage: MemoryStorage) {
+            guard let currentUrl = currentUrl, let currentName = currentName else { return }
+        }
     }
 }

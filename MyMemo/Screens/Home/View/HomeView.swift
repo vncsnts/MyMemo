@@ -8,15 +8,20 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel = HomeViewModel()
+    @ObservedObject var memoryStorage: MemoryStorage
+    @StateObject var viewModel: HomeViewModel
     
     @State var isAnimating = false
+    
+    init(memoryStorage: MemoryStorage) {
+        self.memoryStorage = memoryStorage
+        _viewModel = StateObject(wrappedValue: HomeViewModel(memoryStorage: memoryStorage))
+    }
     
     var body: some View {
         VStack {
             // MARK - HEADER
             Spacer()
-            
             ZStack {
                 CircleGroupView(shapeColor: .gray, shapeOpacity: 0.2)
                     .padding(64)
@@ -34,7 +39,12 @@ struct HomeView: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding()
-            
+            List {
+                ForEach($memoryStorage.memories) { memory in
+                    Text(memory.name.wrappedValue ?? "")
+                }
+            }
+            .listStyle(.plain)
             //MARK - FOOTER
             Spacer()
             
@@ -56,14 +66,13 @@ struct HomeView: View {
         .animation(.easeIn(duration: 1), value: isAnimating)
         .onAppear {
             isAnimating = true
-            viewModel.sheetState = .audioRecording
         }
         .sheet(item: $viewModel.sheetState) { sheetState in
             switch sheetState {
             case .audioRecording:
                 AudioRecorderView()
             case .text:
-                EmptyView()
+                NoteWriterView(memoryStorage: memoryStorage)
             }
         }
         .confirmationDialog("Select a Reminder Type", isPresented: $viewModel.showReminderOptions) {
@@ -80,6 +89,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(memoryStorage: MemoryStorage())
     }
 }

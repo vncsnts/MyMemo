@@ -8,9 +8,11 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-final class BaseViewModel: ObservableObject {
-    @AppStorage("baseViewState") var baseViewState: Int = 0
+extension BaseView {
+    @MainActor
+    final class BaseViewModel: ObservableObject {
+        @AppStorage("baseViewState") var baseViewState: Int = 0
+    }
 }
 
 enum BaseViewState: Int {
