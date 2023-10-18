@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var memoryStorage: MemoryStorage
     @StateObject var viewModel: HomeViewModel
     
     @State var isAnimating = false
     
     init(memoryStorage: MemoryStorage) {
-        self.memoryStorage = memoryStorage
         _viewModel = StateObject(wrappedValue: HomeViewModel(memoryStorage: memoryStorage))
     }
     
@@ -40,7 +38,7 @@ struct HomeView: View {
                 .multilineTextAlignment(.center)
                 .padding()
             List {
-                ForEach($memoryStorage.memories) { memory in
+                ForEach($viewModel.memories) { memory in
                     Text(memory.name.wrappedValue ?? "")
                 }
             }
@@ -72,7 +70,10 @@ struct HomeView: View {
             case .audioRecording:
                 AudioRecorderView()
             case .text:
-                NoteWriterView(memoryStorage: memoryStorage)
+                NoteWriterView(memoryStorage: viewModel.getMemoryStorage())
+                    .onDisappear {
+                        viewModel.getUpdatedMemories()
+                    }
             }
         }
         .confirmationDialog("Select a Reminder Type", isPresented: $viewModel.showReminderOptions) {

@@ -14,40 +14,51 @@ struct AudioRecorderView: View {
 
     var body: some View {
         VStack {
-            WaveView()
             HStack {
-                Button(action: {
-                    viewModel.isRecording.toggle()
-                }, label: {
-                    ZStack {
-                        if viewModel.isRecording {
-                            Rectangle()
-                                .foregroundColor(.red)
-                                .padding(10)
-                        } else {
-                            Circle()
-                                .foregroundColor(.red)
-                                .padding(10)
-                        }
-                        Circle()
-                            .stroke(.primary, lineWidth: 3)
-                    }
-                })
-                .frame(width: 44, height: 44, alignment: .center)
-                
-                Button(action: {
-                    viewModel.isPlaying.toggle()
-                }, label: {
-                    Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
-                })
-                .frame(width: 44, height: 44, alignment: .center)
-                .disabled(!viewModel.hasRecordedData)
-                
+                TextField("Enter a title...", text: $viewModel.title)
+                    .font(.headline)
+                Spacer()
                 Button("Save") {
-                    viewModel.saveRecordedAudio(memoryStorage: memoryStorage)
+                    dismiss()
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(!viewModel.hasRecordedData)
+            }
+            .padding()
+            VStack {
+                WaveView()
+                HStack {
+                    Button(action: {
+                        viewModel.isRecording.toggle()
+                    }, label: {
+                        ZStack {
+                            if viewModel.isRecording {
+                                Rectangle()
+                                    .foregroundColor(.red)
+                                    .padding(10)
+                            } else {
+                                Circle()
+                                    .foregroundColor(.red)
+                                    .padding(10)
+                            }
+                            Circle()
+                                .stroke(.primary, lineWidth: 3)
+                        }
+                    })
+                    .frame(width: 44, height: 44, alignment: .center)
+                    
+                    Button(action: {
+                        viewModel.isPlaying.toggle()
+                    }, label: {
+                        Image(systemName: viewModel.isPlaying ? "pause.fill" : "play.fill")
+                    })
+                    .frame(width: 44, height: 44, alignment: .center)
+                    .disabled(!viewModel.hasRecordedData)
+                    
+                    Button("Save") {
+                        viewModel.saveRecordedAudio(memoryStorage: memoryStorage)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(!viewModel.hasRecordedData)
+                }
             }
         }
         .onAppear {

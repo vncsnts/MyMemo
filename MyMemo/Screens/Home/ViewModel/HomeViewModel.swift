@@ -12,10 +12,22 @@ extension HomeView {
     final class HomeViewModel: ObservableObject {
         @Published var showReminderOptions = false
         @Published var sheetState: HomeViewState?
-        var memoryStorage: MemoryStorage
+        @Published var memories = [Memory]()
+        private var memoryStorage: MemoryStorage
         
         init(memoryStorage: MemoryStorage) {
             self.memoryStorage = memoryStorage
+        }
+        
+        func getMemoryStorage() -> MemoryStorage {
+            return memoryStorage
+        }
+        
+        func getUpdatedMemories() {
+            Task {
+                let memories = await memoryStorage.fetch()
+                self.memories = memories
+            }
         }
     }
     

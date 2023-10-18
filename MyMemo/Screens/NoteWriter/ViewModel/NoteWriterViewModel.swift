@@ -17,7 +17,9 @@ final class NoteWriterViewModel: ObservableObject {
     }
     
     func saveToDatabase() {
-        guard let notesData = notes.data(using: .utf8) else { return }
-        memoryStorage.addMemory(data: notesData, name: title, type: .text)
+        Task {
+            guard let notesData = notes.data(using: .utf8) else { return }
+            await memoryStorage.addMemory(data: notesData, name: title, type: .text)
+        }
     }
 }

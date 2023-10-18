@@ -11,6 +11,7 @@ struct NoteWriterView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var memoryStorage: MemoryStorage
     @StateObject var viewModel: NoteWriterViewModel
+    var didSave: (() -> Void)?
     
     init(memoryStorage: MemoryStorage) {
         self.memoryStorage = memoryStorage

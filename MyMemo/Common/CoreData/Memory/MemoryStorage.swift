@@ -8,9 +8,8 @@
 import Foundation
 import CoreData
 
-final class MemoryStorage: ObservableObject {
+actor MemoryStorage: ObservableObject {
     let container = NSPersistentContainer(name: "MemoryModel")
-    @Published var memories: [Memory] = []
     
     init() {
         container.loadPersistentStores { desc, error in
@@ -20,31 +19,30 @@ final class MemoryStorage: ObservableObject {
                 print("Successful load of Core Data")
             }
         }
-        fetch()
     }
     
-    func fetch() {
+    func fetch() async -> [Memory] {
         let request = NSFetchRequest<Memory>(entityName: "Memory")
         
         do {
             let allMemories = try container.viewContext.fetch(request)
-            memories = allMemories
+            return allMemories
         } catch {
             print("\(error.localizedDescription)")
+            return [Memory]()
         }
     }
     
-    func save(context: NSManagedObjectContext) {
+    func save(context: NSManagedObjectContext) async {
         do {
             try context.save()
-            fetch()
             print("Saved data to MemoryModel.")
         } catch {
             print("Failed to save data with error: \(error.localizedDescription)")
         }
     }
     
-    func addMemory(data: Data, name: String, type: MemoryStorageType) {
+    func addMemory(data: Data, name: String, type: MemoryStorageType) async {
         let memory = Memory(context: container.viewContext)
         memory.id = UUID()
         memory.date = Date()
@@ -52,13 +50,13 @@ final class MemoryStorage: ObservableObject {
         memory.data = data
         memory.type = type.rawValue
         
-        save(context: container.viewContext)
+        await save(context: container.viewContext)
     }
     
-    func updateMemory(memory: Memory, name: String) {
+    func updateMemory(memory: Memory, name: String) async {
         memory.name = name
         
-        save(context: container.viewContext)
+        await save(context: container.viewContext)
     }
 }
 

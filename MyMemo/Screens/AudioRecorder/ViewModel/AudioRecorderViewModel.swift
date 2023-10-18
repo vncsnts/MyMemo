@@ -12,6 +12,8 @@ extension AudioRecorderView {
     final class AudioRecorderViewModel: ObservableObject {
         private var audioRecorderService = AudioRecorderService()
         
+        @Published var title = ""
+        
         @Published var isRecording = false {
             didSet {
                 if self.isRecording {
