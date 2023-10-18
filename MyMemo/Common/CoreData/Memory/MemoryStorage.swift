@@ -33,9 +33,14 @@ actor MemoryStorage: ObservableObject {
         }
     }
     
-    func save(context: NSManagedObjectContext) async {
+    func delete(memory: Memory) async {
+        container.viewContext.delete(memory)
+        await save()
+    }
+    
+    func save() async {
         do {
-            try context.save()
+            try container.viewContext.save()
             print("Saved data to MemoryModel.")
         } catch {
             print("Failed to save data with error: \(error.localizedDescription)")
@@ -50,13 +55,13 @@ actor MemoryStorage: ObservableObject {
         memory.data = data
         memory.type = type.rawValue
         
-        await save(context: container.viewContext)
+        await save()
     }
     
     func updateMemory(memory: Memory, name: String) async {
         memory.name = name
         
-        await save(context: container.viewContext)
+        await save()
     }
 }
 

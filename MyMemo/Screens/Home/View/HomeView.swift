@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var viewModel: HomeViewModel
-    
-    @State var isAnimating = false
+    @StateObject var viewModel: HomeViewModel    
     
     init(memoryStorage: MemoryStorage) {
         _viewModel = StateObject(wrappedValue: HomeViewModel(memoryStorage: memoryStorage))
@@ -23,7 +21,6 @@ struct HomeView: View {
             ZStack {
                 CircleGroupView(shapeColor: .gray, shapeOpacity: 0.2)
                     .padding(64)
-                    .scaleEffect(isAnimating ? 1 : 0)
                 Image("character-2")
                     .resizable()
                     .scaledToFit()
@@ -40,6 +37,9 @@ struct HomeView: View {
             List {
                 ForEach($viewModel.memories) { memory in
                     Text(memory.name.wrappedValue ?? "")
+                }
+                .onDelete { indexSet in
+                    viewModel.deleteMemory(indexSet: indexSet)
                 }
             }
             .listStyle(.plain)
@@ -60,11 +60,9 @@ struct HomeView: View {
             .controlSize(.large)
             Spacer()
         }
-        .opacity(isAnimating ? 1 : 0)
-        .animation(.easeIn(duration: 1), value: isAnimating)
-        .onAppear {
-            isAnimating = true
-        }
+        .onAppear(perform: {
+            viewModel.getUpdatedMemories()
+        })
         .sheet(item: $viewModel.sheetState) { sheetState in
             switch sheetState {
             case .audioRecording:
@@ -85,6 +83,7 @@ struct HomeView: View {
                 viewModel.sheetState = .text
             }
         }
+        .loadingView(isLoading: $viewModel.isLoading)
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A0DADA62ADFC439001C3B04 /* LoadingViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DADA52ADFC439001C3B04 /* LoadingViewModifier.swift */; };
 		8A0F505B2A1DF0480000723E /* AssistantApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F505A2A1DF0480000723E /* AssistantApp.swift */; };
 		8A0F505D2A1DF0480000723E /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0F505C2A1DF0480000723E /* BaseView.swift */; };
 		8A0F505F2A1DF0490000723E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A0F505E2A1DF0490000723E /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A0DADA52ADFC439001C3B04 /* LoadingViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewModifier.swift; sourceTree = "<group>"; };
 		8A0F50572A1DF0480000723E /* MyMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A0F505A2A1DF0480000723E /* AssistantApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantApp.swift; sourceTree = "<group>"; };
 		8A0F505C2A1DF0480000723E /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		8AFA2A862A24D7BC0031CFAB /* ViewModifiers */ = {
 			isa = PBXGroup;
 			children = (
+				8A0DADA52ADFC439001C3B04 /* LoadingViewModifier.swift */,
 				8AFA2A872A24D7D00031CFAB /* LevitateViewModifier.swift */,
 			);
 			path = ViewModifiers;
@@ -374,6 +377,7 @@
 				8A7FFBB82A2E1F9A00CE7A43 /* AudioRecorderViewModel.swift in Sources */,
 				8AFA2A882A24D7D00031CFAB /* LevitateViewModifier.swift in Sources */,
 				8A0F50812A1DFCFE0000723E /* OnboardingViewModel.swift in Sources */,
+				8A0DADA62ADFC439001C3B04 /* LoadingViewModifier.swift in Sources */,
 				8A5EF6922ABB371B00C868D5 /* NoteWriterViewModel.swift in Sources */,
 				8A6CF2462A974D4C008C9EA7 /* MemoryModel.xcdatamodeld in Sources */,
 				8A7FFBB52A2E1F6700CE7A43 /* AudioRecorderView.swift in Sources */,
